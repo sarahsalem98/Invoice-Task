@@ -1,0 +1,113 @@
+﻿@model RegisterRequest;
+@{
+    Layout = "_AuthLayout";
+    ViewData["title"] = "Register";
+}
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <div class="auth-wrapper auth-basic px-2">
+                <div class="auth-inner my-2">
+                    <!-- Register basic -->
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <a href="index.html" class="brand-logo">
+
+                                <h2 class="brand-text text-primary ms-1">Register</h2>
+                            </a>
+
+
+
+                            <form class="auth-register-form mt-2"  asp-controller="Auth" asp-action="register">
+                                <div class="mb-1">
+                                    <label for="register-username" class="form-label">Username</label>
+                                    <input type="text"
+                                           asp-for="UserName"
+                                           class="form-control"
+                                           id="register-username"
+                                          
+                                           placeholder="johndoe"
+                                           aria-describedby="register-username"
+                                           tabindex="1"
+                                           autofocus />
+                                </div>
+                                <div class="mb-1">
+                                    <label for="register-username" class="form-label">FullName</label>
+                                    <input type="text"
+                                           asp-for="fullName"
+                                           class="form-control"
+                                           id="register-username"
+                                           placeholder="johndoe"
+                                           aria-describedby="register-username"
+                                           tabindex="1"
+                                           autofocus />
+                                </div>
+                                <div class="mb-1">
+                                    <label for="register-username" class="form-label">PhoneNumber</label>
+                                    <input type="text"
+                                           asp-for="PhoneNumber"
+                                           class="form-control"
+                                           id="register-username"
+                                           placeholder="johndoe"
+                                           aria-describedby="register-username"
+                                           tabindex="1"
+                                           autofocus />
+                                </div>
+                                <div class="mb-1">
+                                    <label for="register-email" class="form-label">Email</label>
+                                    <input type="email"
+                                        asp-for="Email"
+                                           class="form-control"
+                                           id="register-email"
+                                         
+                                           placeholder="john@example.com"
+                                           aria-describedby="register-email"
+                                           tabindex="2" />
+                                </div>
+
+                                <div class="mb-1">
+                                    <label for="register-password" class="form-label">Password</label>
+
+                                    <div class="input-group input-group-merge form-password-toggle">
+                                        <input type="password"
+                                            asp-for="Password"
+                                               class="form-control form-control-merge"
+                                               id="register-password"
+                                             
+                                               placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                               aria-describedby="register-password"
+                                               tabindex="3" />
+                                        <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                                    </div>
+                                </div>
+                                <div class="mb-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" asp-for="IsAdmin" id="remember-me" type="checkbox" tabindex="3" />
+                                        <label class="form-check-label" for="remember-me"> Is Admin</label>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100" tabindex="5">Sign up</button>
+                            </form>
+
+                            <p class="text-center mt-2">
+                                <span>Already have an account?</span>
+                                <a asp-action="login" asp-controller="Auth">
+                                    <span>Sign in instead</span>
+                                </a>
+                            </p>
+
+
+                        </div>
+                    </div>
+                    <!-- /Register basic -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

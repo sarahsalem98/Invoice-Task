@@ -1,0 +1,208 @@
+﻿@model RegisterRequest;
+@{
+    ViewData["Title"] = "Home-User";
+    int AllowAction = User.IsInRole("Admin")?1:0;
+}
+
+
+
+<!-- BEGIN: Header-->
+<partial name="_NavBar" />
+<!-- END: Header-->
+<!-- BEGIN: Main Menu-->
+<partial name="_Menu" />
+<!-- END: Main Menu-->
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <div class="content-header-left col-md-9 col-12 mb-2">
+                <div class="row breadcrumbs-top">
+                    <div class="col-12">
+                        <h2 class="content-header-title float-start mb-0">Users</h2>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="content-body">
+            <!-- Basic table -->
+            <section id="basic-datatable">
+                <button class="btn btn-primary w-10 ml-10 mr-50" id="AddUserBtn" >+AddUser</button>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <table id="basicTable">
+                                <thead>
+                                    <tr>
+
+
+
+
+
+                                        <th>id</th>
+                                        <th>fullName</th>
+                                        <th>phoneNumber</th>
+                                        <th>email</th>
+                                        <th>userName</th>
+                                        <th>isAdmin</th>
+
+
+                                      
+                                        <th>action</th>
+
+                                        
+
+
+
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal to add new record -->
+                <div class="modal modal-slide-in fade" id="modals-slide-in">
+                    <div class="modal-dialog sidebar-sm">
+                        <form class="add-new-record modal-content pt-0">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
+                            <div class="modal-header mb-1">
+                                <h5 class="modal-title" id="exampleModalLabel">New Record</h5>
+                            </div>
+                            <div class="modal-body flex-grow-1">
+                                <div class="mb-1">
+                                    <label class="form-label" for="basic-icon-default-fullname">Full Name</label>
+                                    <input type="text"
+                                           class="form-control dt-full-name"
+                                           id="basic-icon-default-fullname"
+                                           placeholder="John Doe"
+                                           aria-label="John Doe" />
+                                </div>
+                                <div class="mb-1">
+                                    <label class="form-label" for="basic-icon-default-post">UserName</label>
+                                    <input type="text"
+                                           id="basic-icon-default-user-name"
+                                           class="form-control dt-user-name"
+                                           placeholder="Web Developer"
+                                           aria-label="Web Developer" />
+                                </div>
+                                <div class="mb-1">
+                                    <label class="form-label" for="basic-icon-default-email">Email</label>
+                                    <input type="text"
+                                           id="basic-icon-default-email"
+                                           class="form-control dt-email"
+                                           placeholder="john.doe@example.com"
+                                           aria-label="john.doe@example.com" />
+                                    <small class="form-text"> You can use letters, numbers & periods </small>
+                                </div>
+                                <div class="mb-1">
+                                    <label class="form-label" for="basic-icon-default-post">PhoneNumber</label>
+                                    <input type="text"
+                                           id="basic-icon-default-phone-number"
+                                           class="form-control dt-phone-number"
+                                           placeholder="Web Developer"
+                                           aria-label="Web Developer" />
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="basic-icon-default-salary">Password</label>
+                                    <input type="password"
+                                           id="basic-icon-default-salary"
+                                           class="form-control dt-password"
+                                           placeholder="*****"
+                                           aria-label="****" />
+                                </div>
+                                <button type="submit" class="btn btn-primary data-submit me-1">Submit</button>
+                                <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered modal-edit-user">
+                        <div class="modal-content">
+                            <div class="modal-header bg-transparent">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body pb-5 px-sm-5 pt-50">
+                                <div class="text-center mb-2">
+                                    <h1 class="mb-1">Add User</h1>
+                                  
+                                </div>
+                                <form id="editUserForm" class="row gy-1 pt-75"  >
+                                    @*<input type="hidden"  id="userId"/>*@
+                                    <div class="col-12 col-md-6">
+                                        <label class="form-label" for="basic-icon-default-fullname">Id </label>
+                                        <input type="text"
+                                            asp-for="fullName"
+                                               class="form-control dt-full-name"
+                                               id="userId"
+                                               placeholder="John Doe"
+                                               aria-label="John Doe" />
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="form-label" for="basic-icon-default-post">UserName</label>
+                                        <input type="text"
+                                            asp-for="UserName"
+                                               id="basic-icon-default-user-name"
+                                               class="form-control dt-user-name"
+                                               placeholder="Web Developer"
+                                               aria-label="Web Developer" />
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="form-label" for="basic-icon-default-email">Email</label>
+                                        <input type="email"
+                                            asp-for="Email"
+                                               id="basic-icon-default-email"
+                                               class="form-control dt-email"
+                                               placeholder="john.doe@example.com"
+                                               aria-label="john.doe@example.com" />
+                                        <small class="form-text"> You can use letters, numbers & periods </small>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="form-label" for="basic-icon-default-post">PhoneNumber</label>
+                                        <input type="text"
+                                            asp-for="PhoneNumber"
+                                               id="basic-icon-default-phone-number"
+                                               class="form-control dt-phone-number"
+                                               placeholder="Web Developer"
+                                               aria-label="Web Developer" />
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="form-label" for="basic-icon-default-salary">Password</label>
+                                        <input type="password"
+                                            asp-for="Password"
+                                               id="basic-icon-default-salary"
+                                               class="form-control dt-password"
+                                               placeholder="*****"
+                                               aria-label="****" />
+                                    </div>
+                                    <div class="col-12 text-center mt-2 pt-50">
+                                        <button type="submit" class="btn btn-primary me-1">Submit</button>
+                                        <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close">
+                                            Discard
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+  </div>  </div>
+        @section  Scripts{
+            <script>
+
+                var allowAction = @AllowAction==1;
+
+            </script>
+
+        }
