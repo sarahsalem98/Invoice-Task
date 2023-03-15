@@ -135,10 +135,10 @@
                                     <h1 class="mb-1">Add User</h1>
                                   
                                 </div>
-                                <form id="editUserForm" class="row gy-1 pt-75"  >
+                                <form id="editUserForm" asp-action="AddUser" asp-controller="Home" class="row gy-1 pt-75"  >
                                     @*<input type="hidden"  id="userId"/>*@
                                     <div class="col-12 col-md-6">
-                                        <label class="form-label" for="basic-icon-default-fullname">Id </label>
+                                        <label class="form-label" for="basic-icon-default-fullname">FullName </label>
                                         <input type="text"
                                             asp-for="fullName"
                                                class="form-control dt-full-name"
@@ -174,7 +174,7 @@
                                                placeholder="Web Developer"
                                                aria-label="Web Developer" />
                                     </div>
-                                    <div class="col-12 col-md-6">
+                                   @* <div class="col-12 col-md-6">
                                         <label class="form-label" for="basic-icon-default-salary">Password</label>
                                         <input type="password"
                                             asp-for="Password"
@@ -182,7 +182,7 @@
                                                class="form-control dt-password"
                                                placeholder="*****"
                                                aria-label="****" />
-                                    </div>
+                                    </div>*@
                                     <div class="col-12 text-center mt-2 pt-50">
                                         <button type="submit" class="btn btn-primary me-1">Submit</button>
                                         <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal" aria-label="Close">

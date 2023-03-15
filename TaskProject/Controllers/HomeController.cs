@@ -33,6 +33,8 @@ namespace TaskProject.Controllers
         {
             return View();
         }
+
+
         [HttpGet]
         [Route("getUsers")]
         public string GetUsers()
@@ -40,6 +42,9 @@ namespace TaskProject.Controllers
            
             
         }
+
+
+
         [HttpGet]
         public IActionResult setLanguage(string culture, string returnUrl)
         {
@@ -50,6 +55,9 @@ namespace TaskProject.Controllers
 
             return LocalRedirect(returnUrl);
         }
+
+
+
         [Authorize(Roles ="Admin")]
         public int addUser(RegisterRequest addUserRequest)
         {
@@ -78,6 +86,9 @@ namespace TaskProject.Controllers
 
 
         }
+
+
+
         [Authorize(Roles = "Admin")]
         [Route("edit/user/{id}")]
         public IActionResult EditUser(int Id)
@@ -114,6 +125,56 @@ namespace TaskProject.Controllers
             }
                
         }
+        [Authorize(Roles ="Admin")]
+        [HttpPost]
+        
+        public IActionResult AddUser(RegisterRequest addUserRequset)
+        {
+            ApplicationUser applicationUseruser = _db.applicationUsers.FirstOrDefault(u=>u.UserName==addUserRequset.UserName);  
+
+            if(applicationUseruser == null)
+            {
+                ApplicationUser newUser=new ApplicationUser{
+                    UserName=addUserRequset.UserName,
+                    Email=addUserRequset.Email, 
+                    PhoneNumber=addUserRequset.PhoneNumber, 
+                    Password=_authService.HashPassword(addUserRequset.UserName),
+                    fullName=addUserRequset.fullName
+                };
+
+                _db.applicationUsers.Add(newUser);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+
+
+            }
+            else
+            {
+                return BadRequest();
+            }
+           
+        }
+        [Authorize(Roles ="Admin")]
+        [HttpGet]
+        [Route("deletUser/{Id}")]
+        public int DeleteUser(int Id)
+        {
+
+            var user = _db.applicationUsers.FirstOrDefault(u => u.Id == Id);
+            if (user != null)
+            {
+                _db.applicationUsers.Remove(user);
+                _db.SaveChanges();
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+
+
 
 
     }

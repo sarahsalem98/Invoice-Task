@@ -2,7 +2,24 @@
 function editUser(row) {
 
     window.location.href = `/edit/user/${row}`;
-    console.log(window.href);
+   
+
+}
+
+function deleteUser(row) {
+    
+    $.ajax({
+        url: "/deletUser/" + row,
+        type: "GET",
+
+    }).done(function (data) {
+        if (data == 1) {
+            alert("user is deleted succfully");
+
+        } else {
+            alert("user can not be deleted ");
+        }
+    })
 
 }
 
@@ -40,20 +57,17 @@ $(document).ready(function () {
                             feather.icons['more-vertical'].toSvg({ class: 'font-small-4' }) +
                             '</a>' +
                             '<div class="dropdown-menu dropdown-menu-end">' +
-                            '<a href="javascript:;" class="dropdown-item">' +
-                            feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) +
-                            'Details</a>' +
-                            '<a href="javascript:;" class="dropdown-item">' +
-                            feather.icons['archive'].toSvg({ class: 'font-small-4 me-50' }) +
-                            'Archive</a>' +
-                            '<a href="javascript:;" class="dropdown-item delete-record">' +
+                            '<a href="javascript:;" onclick="editUser(`' + data + '`)" id="editModal" class="dropdown-item">' +
+                            feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
+                            'Edit</a>' +
+                            
+                            '<a href="javascript:;" onclick="deleteUser(`' + data + '`)" class="dropdown-item delete-record">' +
                             feather.icons['trash-2'].toSvg({ class: 'font-small-4 me-50' }) +
                             'Delete</a>' +
                             '</div>' +
-                            '</div>' +
-                            '<a href="javascript:;" onclick="editUser(`' + data + '`)" id="editModal"  class="item-edit">' +
-                            feather.icons['edit'].toSvg({ class: 'font-small-4' }) +
-                            '</a>';
+                            '</div>'
+
+                            ;
                     } else {
                         return '<a href="javascript:;"  class="item-edit">' +
                             feather.icons['x-circle'].toSvg({ class: 'font-small-4' }) +

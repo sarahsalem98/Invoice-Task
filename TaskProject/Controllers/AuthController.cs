@@ -57,6 +57,7 @@ namespace TaskProject.Controllers
             {
                 return BadRequest("Fgfdg");
             }
+          
             
         var createdUser=_db.applicationUsers.FirstOrDefault(user=>user.UserName== registerRequest.UserName);
             if (createdUser == null)
@@ -67,7 +68,7 @@ namespace TaskProject.Controllers
                 user.PhoneNumber = registerRequest.PhoneNumber;
                 user.fullName = registerRequest.fullName;
                 user.Password=_authService.HashPassword(registerRequest.Password);
-                user.IsAdmin = registerRequest.IsAdmin??false;
+                user.IsAdmin = (_db.applicationUsers.Any() == false) ? true:false;
 
                  _db.applicationUsers.Add(user);
                  _db.SaveChanges();
