@@ -14,7 +14,7 @@ function deleteUser(row) {
 
     }).done(function (data) {
         if (data == 1) {
-            alert("user is deleted succfully");
+            DataTable.ajax.reload();
 
         } else {
             alert("user can not be deleted ");
@@ -77,7 +77,62 @@ $(document).ready(function () {
             }
 
 
-        ]
+        ],
+       
+            dom: '<"card-header border-bottom p-1"<"head-label"><"dt-action-buttons text-end"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+            displayLength: 7,
+            lengthMenu: [7, 10, 25, 50, 75, 100],
+            buttons: [
+                {
+                    extend: 'collection',
+                    className: 'btn btn-outline-secondary dropdown-toggle me-2',
+                    text: feather.icons['share'].toSvg({ class: 'font-small-4 me-50' }) + 'Export',
+                    buttons: [
+                        {
+                            extend: 'print',
+                            text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
+                            className: 'dropdown-item',
+                            exportOptions: { columns: [1, 2, 3, 4, 5, 6] }
+                        },
+                        {
+                            extend: 'csv',
+                            text: feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) + 'Csv',
+                            className: 'dropdown-item',
+                            exportOptions: { columns: [1, 2, 3, 4, 5, 6] }
+                        },
+                        {
+                            extend: 'excel',
+                            text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
+                            className: 'dropdown-item',
+                            exportOptions: { columns: [1, 2, 3, 4, 5, 6] }
+                        },
+                        {
+                            extend: 'pdf',
+                            text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
+                            className: 'dropdown-item',
+                            exportOptions: { columns: [1,2,3, 4, 5, 6] }
+                        },
+                        {
+                            extend: 'copy',
+                            text: feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) + 'Copy',
+                            className: 'dropdown-item',
+                            exportOptions: { columns: [1, 2, 3, 4, 5, 6] }
+                        }
+                    ]
+                },
+                {
+                    text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Add New User',
+                    className: 'create-new btn btn-primary',
+                    attr: {
+                        'data-bs-toggle': 'modal',
+                        'data-bs-target': '#editUser'
+                    },
+                    init: function (api, node, config) {
+                        $(node).removeClass('btn-secondary');
+                    }
+                }
+               
+            ]
       
 
     });
@@ -101,7 +156,21 @@ $(document).ready(function () {
            
 
 
-        ]
+        ],
+        dom: '<"card-header border-bottom p-1"<"head-label"><"dt-action-buttons text-end"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+        buttons: [
+            {
+                text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Add New Inoice',
+                className: 'create-new btn btn-primary',
+                attr: {
+                    'data-bs-toggle': 'modal',
+                    'data-bs-target': '#editUser'
+                },
+                init: function (api, node, config) {
+                    $(node).removeClass('btn-secondary');
+                }
+            }
+            ]
     });
 
     $("#AddUserBtn").on("click", function () {
