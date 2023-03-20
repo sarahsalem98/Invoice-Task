@@ -69,14 +69,34 @@ namespace TaskProject.Migrations
 
             modelBuilder.Entity("TaskProject.Models.Invoice", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Invoices");
+                });
+
+            modelBuilder.Entity("TaskProject.Models.InvoiceProduct", b =>
+                {
                     b.Property<int>("InvoiceId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -84,14 +104,11 @@ namespace TaskProject.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("InvoiceId", "ProductId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Invoices");
+                    b.ToTable("InvoiceProducts");
                 });
 
             modelBuilder.Entity("TaskProject.Models.Product", b =>
@@ -120,15 +137,33 @@ namespace TaskProject.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("TaskProject.Models.Invoice", b =>
+            modelBuilder.Entity("TaskProject.Models.InvoiceProduct", b =>
                 {
+                    b.HasOne("TaskProject.Models.Invoice", "Invoice")
+                        .WithMany("InvoiceProducts")
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TaskProject.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("InvoiceProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Invoice");
+
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("TaskProject.Models.Invoice", b =>
+                {
+                    b.Navigation("InvoiceProducts");
+                });
+
+            modelBuilder.Entity("TaskProject.Models.Product", b =>
+                {
+                    b.Navigation("InvoiceProducts");
                 });
 #pragma warning restore 612, 618
         }

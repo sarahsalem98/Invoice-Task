@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Text.Json.Serialization;
 using TaskProject.Data;
 using TaskProject.Helpers;
 using TaskProject.Models;
@@ -9,7 +10,7 @@ using TaskProject.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -84,6 +85,9 @@ var localizationOptions = new RequestLocalizationOptions()
     .AddSupportedCultures(supportedCulturess)
     .AddSupportedUICultures(supportedCulturess);
 app.UseRequestLocalization(localizationOptions);
+
+
+
 
 app.UseAuthentication();
 app.UseAuthorization();

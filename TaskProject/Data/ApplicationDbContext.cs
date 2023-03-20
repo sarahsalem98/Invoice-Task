@@ -14,13 +14,14 @@ namespace TaskProject.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Invoice>().HasKey(In => new { In.InvoiceId, In.ProductId });
+            modelBuilder.Entity<InvoiceProduct>().HasKey(In => new { In.InvoiceId, In.ProductId });
         
 
 
         }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceProduct> InvoiceProducts { get; set; }   
 
-        public DbSet<Invoice> Invoices { get; set; }   
         public DbSet<Product> Products { get; set; }   
 
         public DbSet<ApplicationUser> applicationUsers { get; set; }   

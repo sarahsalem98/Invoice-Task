@@ -1,21 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
 
 namespace TaskProject.Models
 {
-    public class Invoice:TimeStamp
+    public class Invoice : TimeStamp
     {
-        [Key]
-        public int InvoiceId { get; set; }
+        public int Id { get; set; }
 
-        [Key]
-        public int ProductId { get; set; }
-        [ForeignKey("ProductId")]
-        public Product Product { get; set; }  
+
+        [DefaultValue("cash")]
+        public string PaymentMethod { get; set; }     
         
-        public int Quantity { get; set; }   
-        public Double Price { get; set; }  
-
-
+        public IList<InvoiceProduct> InvoiceProducts { get; set; }
     }
 }

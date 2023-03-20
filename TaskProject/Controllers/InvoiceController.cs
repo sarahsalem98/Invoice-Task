@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using NuGet.Protocol;
 using TaskProject.Data;
+using TaskProject.Dtos;
 using TaskProject.Models;
 
 namespace TaskProject.Controllers
@@ -19,12 +21,30 @@ namespace TaskProject.Controllers
         }
         [HttpGet]
         [Route("getInvoices")]
-        public string getInvoices()
+        public List<Invoice> getInvoices()
         {
-           return  _db.Invoices.GroupBy(i => i.InvoiceId).Select(i => i.First()).ToJson();
+           return _db.Invoices.Include("InvoiceProducts").ToList();
 
-          
+    
 
         }
+        [HttpGet]
+        [Route("invoice/create")]
+        public IActionResult Create()
+        {
+            ViewBag.products=_db.Products.ToList();
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Add()
+        {
+
+            return Ok("ghgf");
+
+        }
+
+      
     }
 }

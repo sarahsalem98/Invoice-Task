@@ -43,11 +43,13 @@
     <link rel="stylesheet" type="text/css" href="~/app-assets/css@(ISRTL)/core/menu/menu-types/vertical-menu.min.css">
     <link rel="stylesheet" type="text/css" href="~/app-assets/css@(ISRTL)/plugins/forms/form-wizard.css">
     <link rel="stylesheet" type="text/css" href="~/app-assets/css@(ISRTL)/plugins/forms/form-validation.css">
-    <link rel="stylesheet" type="text/css" href="~/app-assets/css@(ISRTL)l/pages/modal-create-app.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css@(ISRTL)/pages/modal-create-app.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css@(ISRTL)/plugins/forms/pickers/form-flat-pickr.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css@(ISRTL)/pages/app-invoice.css">
     <!-- END: Page CSS-->
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="~/app-assets/css@(ISRTL)l/custom@(ISRTL).min.css">
-    <link rel="stylesheet" type="text/css" href="~/assets/css/style@(ISRTL)l.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css@(ISRTL)/custom@(ISRTL).min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style@(ISRTL).css">
     <!-- END: Custom CSS-->
 
 </head>
@@ -92,6 +94,7 @@
     <script src="~/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
     <script src="~/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
 
+    <script src="~/app-assets/vendors/js/forms/repeater/jquery.repeater.min.js"></script>
     <script src="~/app-assets/vendors/js/forms/wizard/bs-stepper.min.js"></script>
     <script src="~/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
     <script src="~/app-assets/vendors/js/forms/cleave/cleave.min.js"></script>
@@ -106,6 +109,7 @@
     <!-- BEGIN: Page JS-->
    @* <script src="~/app-assets/js/scripts/tables/table-datatables-basic.min.js"></script>*@
     <script src="~/app-assets/js/scripts/pages/modal-edit-user.js"></script>
+    <script src="~/app-assets/js/scripts/pages/app-invoice.js"></script>
     
     @await RenderSectionAsync("Scripts", required: false)
     <script src="~/custome-js/Task.js"></script>
