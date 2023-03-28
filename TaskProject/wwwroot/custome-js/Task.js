@@ -1,32 +1,25 @@
-﻿//$('#addNewItem').each(function () {
+﻿
+ count=0;
 
-//    console.log("77");
-//    $(this).click(function () {
-//        counter++;
-
-
-//    });
-//})
-
-$(document).ready(function () {
-    var count = 0;
     $('#addNewItem').on("click", function () {
         count++;
+       
+      //  document.getElementById("counte").value++;
         let container = document.getElementById("container");
-
+        console.log(count);
         container.innerHTML += `
 
 
 
                                      <div class="repeater-wrapper" id="wrapper_${count}" data-repeater-item>
-                                            <div class="row">
+                                            <div class="row" id="inputRow">
                                                 <div class="col-12 d-flex product-details-border position-relative pe-0">
                                                     <div class="row w-100 pe-lg-0 pe-1 py-2">
                                                         <div class="col-lg-5 col-12 mb-lg-0 mb-2 mt-lg-0 mt-2">
                                                             <p class="card-text col-title mb-md-50 mb-0">Item</p>
-                                                            <select class="form-select " id="selector_${count}" asp-for="ProductId">
+                                                            <select class="form-select " name="invoiceItem[]" id="selector_${count}" >
                                                                 
-                                                                <option disable selected>please enter item</option>
+                                                                <option disable value=" " selected>please enter item</option>
 
                                                                        
 
@@ -35,16 +28,17 @@ $(document).ready(function () {
                                                         </div>
                                                         <div class="col-lg-3 col-12 my-lg-0 my-2">
                                                             <p class="card-text col-title mb-md-2 mb-0">Cost</p>
-                                                            <input type="text" class="form-control" asp-for="Price" placeholder="24" />
+                                                            <input type="text" class="form-control" name="invoiceCost[]"   placeholder="24" />
 
                                                         </div>
                                                         <div class="col-lg-2 col-12 my-lg-0 my-2">
                                                             <p class="card-text col-title mb-md-2 mb-0">Qty</p>
-                                                            <input type="number" class="form-control" asp-for="Qty" placeholder="1" />
+                                                            <input type="number" class="form-control" name="invoiceQty[]"  placeholder="1" />
                                                         </div>
                                                         <div class="col-lg-2 col-12 mt-lg-0 mt-2">
                                                             <p class="card-text col-title mb-md-50 mb-0">Price</p>
-                                                            <p class="card-text mb-0">${count}</p>
+                                                             <input type="hidden" id="countt" />
+                                                            <p class="card-text mb-0">${ count}</p>
                                                         </div>
                                                     </div>
 
@@ -62,20 +56,76 @@ $(document).ready(function () {
         products.forEach(item => {
             let opt = document.createElement('option');
             opt.value = item.id;
+            
             opt.textContent += item.name_EN // or opt.innerHTML += user.name
             sel.appendChild(opt);
         });
 
       
 
-    
+       
 
     });
-});
-function deleteItemee(count) {
 
-    document.getElementById(`wrapper_${count}`).hidden = true;
+function deleteItemee(counte) {
+
+    document.getElementById(`wrapper_${counte}`).remove() ;
+  //  count = count - 1;
+    //document.getElementById("counte").value--;
+
 };
+
+function addInvoiceToDb() {
+    var payment_method = document.getElementById("paymentselection").value;
+    //var inc = [];
+    //var invoices = $("input[name^=invoice]").each(function () {
+    //    inc.push(this.name);
+    //});
+    //  var count = document.getElementById("counte").value;
+
+    var container = document.getElementById("container");
+    var rows = container.querySelectorAll('#inputRow');
+   
+    var data = [];
+   
+    for (var i = 0; i < rows.length; i++) {
+        var inputs = rows[i].querySelectorAll('input');
+        var selectItem = rows[i].querySelectorAll('select')[0];
+        var object = {
+            ProductId: selectItem.options[selectItem.selectedIndex].value,
+            Qty: inputs[1].value,
+            Price: inputs[0].value
+
+        };
+        data.push(
+           
+            object
+        );
+    }
+        var Invoice = {
+            PaymentMethod: payment_method,
+            Invoices:data
+    };
+    console.log(JSON.stringify({ 'addInvoice': Invoice } ));
+    $.ajax({
+        type: "POST",
+        url: "/add",
+
+        data: { 'addInvoice': data, 'paymentMethod': payment_method },
+        dataType: "json",
+        success: function (result) {
+            if (result == 1) {
+                console.log("88")
+              //  alert("rr");
+                location.href = "/Invoice";
+            }else{
+                alert("something went wrong");
+            }
+        }
+        })
+
+    
+}
 
 
 

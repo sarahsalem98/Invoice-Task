@@ -5,7 +5,8 @@ using NuGet.Protocol;
 using TaskProject.Data;
 using TaskProject.Dtos;
 using TaskProject.Models;
-
+using Invoice = TaskProject.Models.Invoice;
+using InvoiceDto = TaskProject.Dtos.Invoice;
 namespace TaskProject.Controllers
 {
     public class InvoiceController : Controller
@@ -38,11 +39,39 @@ namespace TaskProject.Controllers
 
 
         [HttpPost]
-        public IActionResult Add()
+        [Route("add")]
+        public int Add( List<InvoiceDto>addInvoice,string paymentMethod )
         {
 
-            return Ok("ghgf");
+            if (addInvoice == null)
+            {
 
+                return 0; ;
+            }
+            else
+            {
+                List<InvoiceProduct> invoiceProduct = new List<InvoiceProduct>();
+               foreach(InvoiceDto product in addInvoice) {
+                    invoiceProduct.Add(new InvoiceProduct{
+                        ProductId=product.ProductId,
+                        Quantity=product.Qty,
+                        Price=product.Price
+
+                    });
+                        
+                }
+                Invoice newInvoice = new Invoice
+                {
+                    InvoiceProducts= invoiceProduct,
+                    CreatedAt=DateTime.Now,
+                    UpdatedAt=DateTime.Now,
+                    PaymentMethod=paymentMethod
+                };
+                _db.Invoices.Add(newInvoice);
+                _db.SaveChanges();
+                return 1;
+            }
+           
         }
 
       

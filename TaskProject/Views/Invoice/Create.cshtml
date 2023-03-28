@@ -70,10 +70,10 @@
                             <form class="source-item">
                                 <div class="card-body invoice-padding pt-0">
 
-
+                                    <input type="hidden" id="counte" />
                                     <h6 class="invoice-to-title">Payment method:</h6>
 
-                                    <select class=" form-select " asp-for="PaymentMethod">
+                                    <select class=" form-select" id="paymentselection" asp-for="PaymentMethod">
 
                                         <option value="paypal">Paypal</option>
                                         <option value="cash">cash</option>
@@ -104,7 +104,7 @@
 
                                 <hr class="invoice-spacing mt-0" />
 
-                                <button type="submit" class="btn btn-primary w-100 mb-75">Send Invoice</button>
+                                <button type="submit" onclick="addInvoiceToDb()" class="btn btn-primary w-100 mb-75">Send Invoice</button>
 
                             </form>
                         </div>
